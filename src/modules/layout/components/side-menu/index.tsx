@@ -11,10 +11,9 @@ import CountrySelect from "../country-select"
 
 const SideMenuItems = {
   Home: "/",
-  Store: "/store",
+  Garage: "/store",
   Search: "/search",
-  Account: "/account",
-  Cart: "/cart",
+  Contact: "/contact",
 }
 
 const SideMenu = ({ regions }: { regions: Region[] | null }) => {
@@ -27,7 +26,7 @@ const SideMenu = ({ regions }: { regions: Region[] | null }) => {
           {({ open, close }) => (
             <>
               <div className="relative flex h-full">
-                <Popover.Button className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base">
+                <Popover.Button className="relative text-lg h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base">
                   Menu
                 </Popover.Button>
               </div>
@@ -69,22 +68,9 @@ const SideMenu = ({ regions }: { regions: Region[] | null }) => {
                         className="flex justify-between"
                         onMouseEnter={toggleState.open}
                         onMouseLeave={toggleState.close}
-                      >
-                        {regions && (
-                          <CountrySelect
-                            toggleState={toggleState}
-                            regions={regions}
-                          />
-                        )}
-                        <ArrowRightMini
-                          className={clx(
-                            "transition-transform duration-150",
-                            toggleState.state ? "-rotate-90" : ""
-                          )}
-                        />
-                      </div>
+                      ></div>
                       <Text className="flex justify-between txt-compact-small">
-                        © {new Date().getFullYear()} Medusa Store. All rights
+                        © {new Date().getFullYear()} Space-Car. All rights
                         reserved.
                       </Text>
                     </div>

@@ -374,29 +374,33 @@ const regionMap = new Map<string, Region>()
 
 export const getRegion = cache(async function (countryCode: string) {
   try {
-    if (regionMap.has(countryCode)) {
-      return regionMap.get(countryCode)
+    // Instead of dynamically determining the region based on the country code,
+    // directly return the European region.
+    if (regionMap.has("EU")) {
+      return regionMap.get("EU")
     }
 
+    // Fetch and cache regions if not already done
     const regions = await listRegions()
 
     if (!regions) {
+      console.error("Failed to list regions")
       return null
     }
 
-    regions.forEach((region) => {
-      region.countries.forEach((c) => {
-        regionMap.set(c.iso_2, region)
-      })
-    })
+    // Specifically find the European region and cache it
+    const euRegion = regions.find(
+      (region) => region.id === "reg_01HR2B8HPCJ2650X4HHYSEPTE1"
+    )
+    if (euRegion) {
+      regionMap.set("EU", euRegion)
+      return euRegion
+    }
 
-    const region = countryCode
-      ? regionMap.get(countryCode)
-      : regionMap.get("us")
-
-    return region
+    console.error("European region not found")
+    return null
   } catch (e: any) {
-    console.log(e.toString())
+    console.error(e.toString())
     return null
   }
 })

@@ -21,8 +21,8 @@ const StoreTemplate = ({
     <div className="flex flex-col small:flex-row small:items-start py-6 content-container">
       <RefinementList sortBy={sortBy || "created_at"} />
       <div className="w-full">
-        <div className="mb-8 text-2xl-semi">
-          <h1>All products</h1>
+        <div className="mb-8 text-6xl md:text-[12rem] font-bold text-slate-200">
+          <h1>All Cars</h1>
         </div>
         <Suspense fallback={<SkeletonProductGrid />}>
           <PaginatedProducts

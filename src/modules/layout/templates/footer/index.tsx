@@ -1,4 +1,6 @@
 import { Text, clx } from "@medusajs/ui"
+import Logo from "/public/images/logo2.svg"
+import Image from "next/image"
 
 import { getCategoriesList, getCollectionsList } from "@lib/data"
 
@@ -10,15 +12,15 @@ export default async function Footer() {
   const { product_categories } = await getCategoriesList(0, 6)
 
   return (
-    <footer className="border-t border-ui-border-base w-full">
+    <footer className="border-t border-ui-border-base w-full bg-[#19355E]">
       <div className="content-container flex flex-col w-full">
         <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-40">
           <div>
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
+              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
             >
-              Medusa Store
+              <Image src={Logo} alt="Logo" width={200} />
             </LocalizedClientLink>
           </div>
           <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
@@ -77,8 +79,8 @@ export default async function Footer() {
             )}
             {collections && collections.length > 0 && (
               <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Collections
+                <span className="txt-small-plus text-white">
+                  Our Collections
                 </span>
                 <ul
                   className={clx(
@@ -88,30 +90,36 @@ export default async function Footer() {
                     }
                   )}
                 >
-                  {collections?.slice(0, 6).map((c) => (
-                    <li key={c.id}>
-                      <LocalizedClientLink
-                        className="hover:text-ui-fg-base"
-                        href={`/collections/${c.handle}`}
-                      >
-                        {c.title}
-                      </LocalizedClientLink>
-                    </li>
-                  ))}
+                  {collections?.slice(0, 6).map((c) => {
+                    // If the collection title is 'Offers Of The Month', don't render it
+                    if (c.title === "Offers Of The Month") {
+                      return null
+                    }
+                    return (
+                      <li key={c.id}>
+                        <LocalizedClientLink
+                          className="hover:text-white text-ui-fg-muted"
+                          href={`/collections/${c.handle}`}
+                        >
+                          {c.title}
+                        </LocalizedClientLink>
+                      </li>
+                    )
+                  })}
                 </ul>
               </div>
             )}
             <div className="flex flex-col gap-y-2">
-              <span className="txt-small-plus txt-ui-fg-base">Medusa</span>
-              <ul className="grid grid-cols-1 gap-y-2 text-ui-fg-subtle txt-small">
+              <span className="txt-small-plus text-white">Socials</span>
+              <ul className="grid grid-cols-1 gap-y-2 txt-small text-ui-fg-muted">
                 <li>
                   <a
                     href="https://github.com/medusajs"
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-ui-fg-base"
+                    className="hover:text-white"
                   >
-                    GitHub
+                    Facebook{" "}
                   </a>
                 </li>
                 <li>
@@ -119,9 +127,9 @@ export default async function Footer() {
                     href="https://docs.medusajs.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-ui-fg-base"
+                    className="hover:text-white"
                   >
-                    Documentation
+                    Instagram
                   </a>
                 </li>
                 <li>
@@ -129,9 +137,9 @@ export default async function Footer() {
                     href="https://github.com/medusajs/nextjs-starter-medusa"
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-ui-fg-base"
+                    className="hover:text-white"
                   >
-                    Source code
+                    Youtube{" "}
                   </a>
                 </li>
               </ul>
@@ -140,7 +148,7 @@ export default async function Footer() {
         </div>
         <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
           <Text className="txt-compact-small">
-            © {new Date().getFullYear()} Medusa Store. All rights reserved.
+            © {new Date().getFullYear()} Space-Car. All rights reserved.
           </Text>
           <MedusaCTA />
         </div>

@@ -6,6 +6,7 @@ import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
 import { ProductCollectionWithPreviews } from "types/global"
 import { cache } from "react"
+import HeroBox from "@modules/home/components/hero-box"
 
 export const metadata: Metadata = {
   title: "Medusa Next.js Starter Template",
@@ -17,7 +18,7 @@ const getCollectionsWithProducts = cache(
   async (
     countryCode: string
   ): Promise<ProductCollectionWithPreviews[] | null> => {
-    const { collections } = await getCollectionsList(0, 3)
+    const { collections } = await getCollectionsList(0, 7)
 
     if (!collections) {
       return null
@@ -69,6 +70,7 @@ export default async function Home({
   return (
     <>
       <Hero />
+      <HeroBox collections={collections} />
       <div className="py-12">
         <ul className="flex flex-col gap-x-6">
           <FeaturedProducts collections={collections} region={region} />

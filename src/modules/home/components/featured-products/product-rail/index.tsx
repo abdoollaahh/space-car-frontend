@@ -14,6 +14,11 @@ export default function ProductRail({
 }) {
   const { products } = collection
 
+  // If the collection handle is 'used', don't display it
+  if (collection.handle !== "offers-of-the-month") {
+    return null
+  }
+
   if (!products) {
     return null
   }
@@ -21,10 +26,21 @@ export default function ProductRail({
   return (
     <div className="content-container py-12 small:py-24">
       <div className="flex justify-between mb-8">
-        <Text className="txt-xlarge">{collection.title}</Text>
+        <Text className="text-3xl text-slate-700 font-semibold">
+          {collection.title}
+        </Text>
         <InteractiveLink href={`/collections/${collection.handle}`}>
           View all
         </InteractiveLink>
+      </div>
+      <div className="flex justify-between mb-8">
+        <Text className="text-xl text-slate-700">
+          Are you looking for a new car? Discover the best offers and promotions{" "}
+          <br />
+          among our brands. Select your favorite cars, compare prices, features{" "}
+          <br />
+          and request a free quote in just a few clicks!
+        </Text>
       </div>
       <ul className="grid grid-cols-2 small:grid-cols-3 gap-x-6 gap-y-24 small:gap-y-36">
         {products &&
